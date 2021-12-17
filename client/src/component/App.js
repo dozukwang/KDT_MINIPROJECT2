@@ -14,8 +14,12 @@ import Naver from "./naver/Naver";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [userId, setUserId] = useState(process.env.REACT_APP_USER_ID); // 로그인 구현 전 유저아이디 디폴트 기입
+  const [userId, setUserId] = useState(''); 
 
+  useEffect(()=>{
+    // 로그인 구현 전 유저아이디 디폴트 기입
+    setUserId(process.env.REACT_APP_USER_ID)
+  },[])
   return (
     <div className="App">
       <Header />
