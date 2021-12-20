@@ -4,7 +4,8 @@ import dayjs from 'dayjs'
 import { useHistory } from "react-router-dom";
 
 
-const BoardList = ({post, index}) => {
+const BoardList = (props) => {
+  const { post, index, currentPage, length} = props
   const [ postView, setPostView ] = useState(post.view_count)
   const history = useHistory()
 
@@ -26,7 +27,7 @@ const BoardList = ({post, index}) => {
 
   return (
     <tr onClick={openBoardPost}>
-      <td>{index + 1}</td>
+      <td>{ currentPage * length + (index + 1)}</td>
       <td className="text-start">{post.title}</td>
       <td>{post.insert_user}</td>
       <td>{dayjs(post.insert_date).format('YYYY.MM.DD')}</td>

@@ -75,7 +75,7 @@ const EditPost = ({history, location}) => {
           </FormGroup>
           <FormGroup>
             <Label for="author"> 작성자 </Label>
-            <Input id="author" type="text" bsSize="sm" invalid={isAuthorEmpty} defaultValue={prevPostData.insert_user} />
+            <Input id="author" type="text" bsSize="sm" invalid={isAuthorEmpty} defaultValue={prevPostData.insert_user} disabled/>
           </FormGroup>
           <FormGroup>
             <Label for="password"> 비밀번호 </Label>

@@ -1,22 +1,38 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
-import { Button, Container, Table } from 'reactstrap'
-import BoardList from "./BoardList";
 import { Link } from "react-router-dom";
+import { Button, Container, Table } from 'reactstrap'
+import axios from 'axios'
+import BoardList from "./BoardList";
+import PageNav from "./PageNav";
 
 const Board = () => {
   const [ searchedList, setSearchedList ] = useState([])
+  const [ currentPage, setCurrentPage ] = useState(0)
+  const length = 10
+  const start = 0
 
   useEffect(()=>{
+    selectBoardPost()
+  },[])
+  
+  // 페이지 이동 시 새로운 검색 정보 가져오기
+  const pageMove = (pageNumber) => {
+    console.log('pageMove 실행됨', pageNumber)
+    selectBoardPost(pageNumber)
+    setCurrentPage(pageNumber)
+  }
+
+  const selectBoardPost = (pageNumber = 1) => {
     axios
-    .post("/api/Board?type=list")
+    .post("/api/Board?type=page", {
+      length,
+      start: (pageNumber * length) + start
+    })
     .then((response)=>{
       setSearchedList(response.data.json)
     })
     .catch((error)=>{ console.log(error) })
-
-  },[])
-
+  }
   return (
     <div>
       <h2>게시판</h2>
@@ -39,11 +55,12 @@ const Board = () => {
           </thead>
           <tbody>
             {searchedList.map((post, index) => (
-              <BoardList key={post.id} post={post} index={index} />
+              <BoardList key={post.id} post={post} index={index} currentPage={currentPage} length={length} />
             ))}
           </tbody>
         </Table>
       </Container>
+      <PageNav pageMove={pageMove} currentPage={currentPage} />
     </div>
   );
 };
