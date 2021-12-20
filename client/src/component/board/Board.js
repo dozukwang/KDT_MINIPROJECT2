@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import { Button, Container, Table } from 'reactstrap'
-import Post from "./Post";
+import BoardList from "./BoardList";
+import { Link } from "react-router-dom";
 
 const Board = () => {
-  const [ BoardList, setBoardList ] = useState([])
+  const [ searchedList, setSearchedList ] = useState([])
 
   useEffect(()=>{
     axios
-    .post("/api/Board?type=list", { content: '내용' })
+    .post("/api/Board?type=list")
     .then((response)=>{
-      setBoardList(response.data.json)
+      setSearchedList(response.data.json)
     })
     .catch((error)=>{ console.log(error) })
 
@@ -19,13 +20,14 @@ const Board = () => {
   return (
     <div>
       <h2>게시판</h2>
-      <div>
       <Container>
         <div className="d-flex justify-content-between">
           <span>10건의 게시물</span>
-          <Button size="sm" className="">게시글 쓰기</Button>
+          <Link to="/board/newpost">
+            <Button size="sm" className="">게시글 쓰기</Button>
+          </Link>
         </div>
-        <Table bordered hover>
+        <Table hover>
           <thead>
             <tr>
               <th className="col-1">번호</th>
@@ -36,13 +38,12 @@ const Board = () => {
             </tr>
           </thead>
           <tbody>
-            {BoardList.map((post, index) => (
-              <Post key={post.id} post={post} index={index} />
+            {searchedList.map((post, index) => (
+              <BoardList key={post.id} post={post} index={index} />
             ))}
           </tbody>
         </Table>
       </Container>
-      </div>
     </div>
   );
 };

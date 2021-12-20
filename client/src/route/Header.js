@@ -1,24 +1,24 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Nav, Navbar, NavbarBrand, NavItem } from "reactstrap";
+import logo from '../img/layout/logo.png'
 
 class Header extends Component {
+
   render() {
     return (
       <header>
         <Navbar>
-          <NavbarBrand>
-            <Link to={"/"}>
+          <NavbarBrand href={"/"}>
               <img
-                src={require("../img/layout/logo.png").default}
+                src={logo}
                 height="90px"
                 width="200px"
-                alt=""
+                alt="로고"
               />
-            </Link>
           </NavbarBrand>
           {/* <NavbarToggler /> */}
-          <Nav className="mr-auto" className="menu">
+          <Nav className="mr-auto menu">
             <NavItem>
               <NavLink to={"/board"}>게시판</NavLink>
             </NavItem>
