@@ -35,8 +35,8 @@ const Board = () => {
   }
   return (
     <div>
-      <h2>게시판</h2>
       <Container>
+        <h2>게시판</h2>
         <div className="d-flex justify-content-between">
           <span>10건의 게시물</span>
           <Link to="/board/newpost">
@@ -60,7 +60,9 @@ const Board = () => {
           </tbody>
         </Table>
       </Container>
-      <PageNav pageMove={pageMove} currentPage={currentPage} />
+      <div>
+        <PageNav pageMove={pageMove} currentPage={currentPage} />
+      </div>
     </div>
   );
 };

@@ -1,8 +1,18 @@
 /* @import url(/css/dpl/sce/NotoSansKR-Hestia.css); */
 
+/* 개인추가 */
+.page-link {
+  margin: 0;
+}
+
 /**** Common ************************************************/
 * {
   max-height: 1000000px;
+  margin: 0;
+  padding: 0;
+}
+ul, li {
+  list-style: none;
   margin: 0;
   padding: 0;
 }

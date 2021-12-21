@@ -40,7 +40,7 @@ const Post = () => {
 
   return (
       <Container className="border">
-        <Row className="border-bottom">
+        <Row className="border-bottom border-2 border-dark">
           <Col>{postInfo.title}</Col>
           <Col sm={1}>{dayjs(postInfo.insert_date).format('YYYY.MM.DD')}</Col>
         </Row>
