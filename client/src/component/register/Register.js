@@ -3,15 +3,19 @@ import { Container, Form, Input, Label, Button, FormGroup, InputGroupText, Input
 
 
 const Register = (props) => {
-  // 제출내용 유효확인
+  // 필수값 입력여부 확인
   const [ isSigninPasswordInvalid, setIsSigninPasswordInvalid ] = useState(false)
   const [ isSigninEmailInvalid, setIsSigninEmailInvalid ] = useState(false)
   const [ isSigninEmail2Invalid, setIsSigninEmail2Invalid ] = useState(false)
   const [ isSigninNameInvalid, setIsSigninNameInvalid ] = useState(false)
   const [ isSigninPhoneInvalid, setIsSigninPhoneInvalid ] = useState(false)
-  // 이메일 입력확인
-  const [ isUserId, setIsUserId ] = useState("")
+  //이메일 입력 유효확인
   const [ isUserId2, setIsUserId2 ] = useState("")
+  const [ userIds, setUserIds ] = useState({
+    email1: '',
+    eamil2: ''
+  })
+  // const { email1, email2 } = userIds
 
   const submitFormSignin = (event) => {
     event.preventDefault()
@@ -33,7 +37,8 @@ const Register = (props) => {
       console.log('필수값 비어있음', emptyCount)
     } else (console.log('필수값 다있음', emptyCount))
 
-    // 비밀번호 유효형식 확인
+    // 아이디 중복체크
+    
     
   }
 
@@ -60,37 +65,82 @@ const Register = (props) => {
     } return emptyCount
   }
 
-  const changeEmailValue = (event) => {
-      setIsUserId2(event.target.value)
+  const changeEmail1InputValue = (event) => {
+    setUserIds({
+      ...userIds,
+      'email1': event.target.value,
+    })
+  }
+
+  const changeEmail2InputValue = (event) => {
+      setUserIds({
+        ...userIds,
+        'email2': event.target.value
+      })
+  }
+
+  // 이메일 올바른입력 확인
+  const emailCheck = () => {
+    const firstPlace = userIds.email1
+    const secondPlace = userIds.email2
+    const fullEmail = `${firstPlace}@${secondPlace}`
+    console.log('1', firstPlace, '2', secondPlace)
+    // 이메일 빈값 확인(첫 번째 칸)
+    if (firstPlace.length < 1 && secondPlace === undefined) {
+      setIsSigninEmailInvalid(true)
+      setIsSigninEmail2Invalid(true)
+      return
+    } else if (firstPlace.length < 1 || firstPlace.length > 30) {
+      setIsSigninEmailInvalid(true)
+      setIsSigninEmail2Invalid(false)
+      return
+    } else {
+      setIsSigninEmailInvalid(false)
+    }
+    // 이메일 유효성 확인, 오류 발생 시 이메일 주소 오류 설정(두 번째 칸)
+    var emailRef = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    if (emailRef.test(fullEmail)) { 
+      console.log('이메일 통과')
+      setIsSigninEmail2Invalid(false)
+    } else { 
+      console.log('이메일 실패')
+      setIsSigninEmail2Invalid(true)
+      return
+    }
+    return fullEmail
   }
 
 
   return (
     <Container >
       <h2>회원가입</h2>
-      <Form onSubmit={submitFormSignin}>
+      <Form onSubmit={submitFormSignin} >
         <FormGroup row>
           <Label md={2} htmlFor="signin-userId">
               아이디 (이메일)
           </Label>
           <Col md={3}>
-            <Input id="signin-userId" type="text" placeholder="이메일" invalid={isSigninEmailInvalid}/>
+            <Input id="signin-userId" type="text" placeholder="이메일"  onChange={changeEmail1InputValue} invalid={isSigninEmailInvalid}/>
           </Col>
           <Col md={3}>
           <InputGroup>
               <InputGroupText>
                 @
               </InputGroupText>
-              <Input id="signin-userId2" type="text" placeholder="직접 입력" defaultValue={isUserId2? isUserId2 : undefined} invalid={isSigninEmail2Invalid} />
+              <Input id="signin-userId2" type="text" placeholder="직접 입력" defaultValue={userIds.email2} onChange={changeEmail2InputValue} invalid={isSigninEmail2Invalid} />
             </InputGroup>
           </Col>
           <Col md={2}>
-            <Input name="email" type="select" onChange={changeEmailValue}>
+            <Input name="email" type="select" defaultValue="" onChange={changeEmail2InputValue}>
+              <option value="" disabled> 이메일 선택 </option>
               <option value="naver.com"> naver.com </option>
               <option value="google.com"> google.com </option>
               <option value="hanmail.net"> hanmail.net </option>
               <option value="daum.net"> daum.net </option>
             </Input>
+          </Col>
+          <Col md={2}>
+            <Button type="button" onClick={emailCheck}> 중복확인 </Button>
           </Col>
         </FormGroup>
         <FormGroup row>
