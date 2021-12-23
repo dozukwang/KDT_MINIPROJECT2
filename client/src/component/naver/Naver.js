@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import { Container, Input, ListGroup, ListGroupItem } from 'reactstrap'
+import { Container, Input, Label, ListGroup, ListGroupItem } from 'reactstrap'
+import AutoKeyword from './AutoKeyword';
 
-const Naver = (props) => {
+const Naver = () => {
+  const [ searchKeyword, setSearchKeyword ] = useState([])
+  const [ keywordList, setKeywordList ] = useState([])
+  const [ inputKeyword, setInputKeyword ] = useState('')
 
+  // 자동검색어 키워드 추출
+  useEffect(()=>{
+    setKeywordList([])
+    searchKeyword.forEach((word, index)=>{
+      console.log('실행됨', index + 1, word[0])
+      setKeywordList((prev) => ([...prev, word[0]]))
+    })
+  },[searchKeyword])
+
+  // 자동검색어 호출
   const getAutoKeyword = (event) => {
     axios
     .post(`/api/naverApi?type=search`, { query: event.target.value })
     .then((response) => {
-      console.log('자동키워드', response.data.items)
-      console.log('입력키워드', event.target.value)
+      setSearchKeyword(response.data.items[0])
     })
     .catch((error) => console.log(error))
+  }
+
+  const getClickedValue = (event) => {
+    console.log(event.target.innerText)
+    setInputKeyword(event.target.innerText)
   }
 
   // const getDataSearched = (event) => {
@@ -32,15 +50,17 @@ const Naver = (props) => {
 
   return (
     <div>
-      <h2>최저가 상품 조회 및 등록 하기</h2>
+      <h2>최저가 상품 조회</h2>
       <Container>
-        <Input type="search" onChange={getAutoKeyword}/>
-      </Container>
-      <ListGroup>
-        <ListGroupItem>
-          검색어
-        </ListGroupItem>
+        <Label htmlFor="keyword"> 찾고 싶은 상품 </Label>
+        <Input id="keyword" type="search" autoComplete="off" onChange={getAutoKeyword} defaultValue={inputKeyword} placeholder="검색어 입력"/>
+        <ListGroup>
+          {keywordList.map((keyword, index)=>(
+              <AutoKeyword key={index} keyword={keyword} index={index} getClickedValue={getClickedValue}/>
+          ))}
       </ListGroup>
+      </Container>
+
       <div>검색결과(리스트)</div>
       <ListGroup>
         <ListGroupItem>
