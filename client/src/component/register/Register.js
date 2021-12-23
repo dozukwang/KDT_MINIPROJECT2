@@ -144,7 +144,7 @@ const Register = ({ history }) => {
     .catch((error)=>{ console.log(error) })
   }
 
-  // Value onChange
+  // Value onChange 함수들
   const changeEmail1InputValue = (event) => {
     setUserIds({
       ...userIds,

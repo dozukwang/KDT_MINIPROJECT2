@@ -16,7 +16,7 @@ import NewPost from "./board/NewPost";
 import Post from "./board/Post";
 import EditPost from "./board/EditPost";
 import axios from "axios";
-import EditPassword from "./register/EditPassword";
+import ChangePassword from "./register/ChangePassword";
 import MyPage from "./register/MyPage";
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/mypage" render={() => <MyPage userId={userId} />} />
-        <Route exact path="/mypage/editpassword" render={() => <EditPassword userId={userId} />} />
+        <Route exact path="/mypage/changepassword" render={() => <ChangePassword userId={userId} />} />
         <Route exact path="/naverApi" component={Naver} />
         <Route exact path="/board" component={Board} />
         <Route exact path="/board/newpost" component={NewPost} />

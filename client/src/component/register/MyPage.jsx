@@ -4,9 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { Button, Container, Label, Col, Row, Input, InputGroup, InputGroupText, Form, FormGroup } from 'reactstrap'
 import {useHistory} from "react-router";
 
-// 비밀번호 변경창/변경하기 기능 만들기
-// 상품등록 게시판 만들기
-
 const MyPage = ( props ) => {
   const history = useHistory()
   const { userId } = props
@@ -132,7 +129,7 @@ const MyPage = ( props ) => {
               비밀번호 (필수)
             </Label>
             <Col md={3}>
-              <Button type="button" onClick={()=>{history.push('/mypage/editpassword')}}>변경하기</Button>
+              <Button type="button" onClick={()=>{history.push('/mypage/changepassword')}}>변경하기</Button>
             </Col>
           </FormGroup>
           <FormGroup row>
