@@ -15,14 +15,12 @@ import { useEffect, useState } from "react";
 import NewPost from "./board/NewPost";
 import Post from "./board/Post";
 import EditPost from "./board/EditPost";
+import axios from "axios";
+import EditPassword from "./register/EditPassword";
+import MyPage from "./register/MyPage";
 
 function App() {
-  const [userId, setUserId] = useState(""); 
-
-  useEffect(()=>{
-    // 로그인 구현 전 유저아이디 디폴트 기입
-  setUserId(process.env.REACT_APP_USER_ID)
-  },[])
+  const [userId, setUserId] = useState(process.env.REACT_APP_USER_ID); 
   
   return (
     <div className="App">
@@ -31,6 +29,8 @@ function App() {
         <Route exact path="/" component={Login} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/mypage" render={() => <MyPage userId={userId} />} />
+        <Route exact path="/mypage/editpassword" render={() => <EditPassword userId={userId} />} />
         <Route exact path="/naverApi" component={Naver} />
         <Route exact path="/board" component={Board} />
         <Route exact path="/board/newpost" component={NewPost} />

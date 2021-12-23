@@ -204,7 +204,7 @@ const Register = ({ history }) => {
             </InputGroup>
           </Col>
           <Col md={2}>
-            <Input name="email" type="select" defaultValue="" onChange={changeEmail2InputValue}>
+            <Input type="select" defaultValue="" onChange={changeEmail2InputValue}>
               <option value="" disabled> 이메일 선택 </option>
               <option value="naver.com"> naver.com </option>
               <option value="gmail.com"> gmail.com </option>
@@ -237,7 +237,7 @@ const Register = ({ history }) => {
             전화번호
           </Label>
           <Col md={1}>
-            <Input name="phone" id="signin-userPhone" type="select" onChange={changePhoneValue} >
+            <Input id="signin-userPhone" type="select" onChange={changePhoneValue} >
               <option value="010">010</option>
               <option value="011">011</option>
               <option value="019">019</option>
@@ -266,7 +266,7 @@ const Register = ({ history }) => {
             직업
           </Label>
           <Col md={3}>
-            <Input id="signin-userJob" name="job" defaultValue="" onChange={(event)=>{setUserJob(event.target.value)}} type="select" placeholder="직업을 입력하세요">
+            <Input id="signin-userJob" defaultValue="" onChange={(event)=>{setUserJob(event.target.value)}} type="select" placeholder="직업을 입력하세요">
               <option value="" disabled> 직업 선택 </option>
               <option value="직장인"> 직장인 </option>
               <option value="자영업자"> 자영업자 </option>
