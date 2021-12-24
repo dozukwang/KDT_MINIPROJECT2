@@ -8,8 +8,8 @@ import PageNav from "./PageNav";
 const Board = () => {
   const [ searchedList, setSearchedList ] = useState([])
   const [ currentPage, setCurrentPage ] = useState(0)
-  const length = 10
-  const start = 0
+  const pageName = 'Board'
+  const length = 10 // 불러올 길이 = 페이지 당 보여줄 게시글 수
 
   useEffect(()=>{
     selectBoardPost()
@@ -22,11 +22,11 @@ const Board = () => {
     setCurrentPage(pageNumber)
   }
 
-  const selectBoardPost = (pageNumber = 1) => {
+  const selectBoardPost = (pageNumber = 0) => {
     axios
     .post("/api/Board?type=page", {
       length,
-      start: (pageNumber * length) + start
+      start: (pageNumber * length)
     })
     .then((response)=>{
       setSearchedList(response.data.json)
@@ -61,7 +61,7 @@ const Board = () => {
         </Table>
       </Container>
       <div>
-        <PageNav pageMove={pageMove} currentPage={currentPage} />
+        <PageNav pageName={pageName} length={length} pageMove={pageMove} currentPage={currentPage} />
       </div>
     </div>
   );
