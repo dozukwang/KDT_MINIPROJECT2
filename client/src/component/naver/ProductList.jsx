@@ -1,8 +1,36 @@
+import axios from 'axios';
 import React from 'react';
-import { Col, List, ListGroupItem } from 'reactstrap'
+import { Button, Col, List, ListGroupItem } from 'reactstrap'
 
 const ProductList = (props) => {
   const { item, index, currentPage, length } = props
+
+  const addProduct = () => {
+    const info = {
+      brand: item.brand,
+      category1: item.category1,
+      category2: item.category2,
+      category3: item.category3,
+      category4: item.category4,
+      h_price: item.hprice,
+      image: item.image,
+      l_price: item.lprice,
+      link: item.link,
+      maker: item.maker,
+      mall_name: item.mallName,
+      product_id: item.productId,
+      title: item.title,
+      product_count: 1
+    }
+    axios
+    .post('/api/naverApi?type=save', {
+      ...info
+    })
+    .then((response) => {
+      console.log('상품추가 완료', response.data)
+    })
+    .catch((error) => console.log(error))
+  }
 
   return (
     <div>
@@ -22,6 +50,9 @@ const ProductList = (props) => {
           </Col>
           <Col md={1}>
             <a href={item.link}>{item.mallName}</a>
+          </Col>
+          <Col md={1}>
+            <Button onClick={addProduct}>구매</Button>
           </Col>
         </List>
       </ListGroupItem>

@@ -78,7 +78,7 @@ const Naver = () => {
 
   return (
     <div>
-      <h2>최저가 상품 조회</h2>
+      <h2>등록할 상품 검색</h2>
       <Container>
         <Label htmlFor="keyword"> 찾고 싶은 상품 </Label>
         <Input id="keyword" type="search" autoComplete="off" onKeyPress={handleEnterSearch} onChange={getAutoKeyword} value={inputKeyword} placeholder="검색어 입력"/>
@@ -97,6 +97,7 @@ const Naver = () => {
           <Col>상품명</Col>
           <Col md={1}>최저가</Col>
           <Col md={1}>판매처</Col>
+          <Col md={1}>구매하기</Col>
         </List>
       </ListGroupItem>
       {ItemList.map((item, index)=>(

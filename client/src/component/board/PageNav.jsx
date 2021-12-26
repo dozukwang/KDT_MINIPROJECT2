@@ -10,6 +10,7 @@ const PageNav = (props) => {
     //페이징바 시작&끝 번호
     const [ startIndex, setStartIndex ] = useState(0);
     const [ endIndex, setEndIndex ] = useState(10);
+    const PagingNum = 10 // 보여줄 페이징 번호 수
 
   useEffect(()=>{
     // 필요한 페이지 수 확인하기
@@ -26,17 +27,12 @@ const PageNav = (props) => {
   }},[])
 
   useEffect(()=>{
-    setTotalPage(Math.ceil(totalPost / length))
+    setTotalPage(Math.ceil(totalPost / PagingNum))
   },[totalPost > 0])
 
   useEffect(()=>{
-    setTotalPage(Math.ceil(totalProduct / length))
+    setTotalPage(Math.ceil(totalProduct / PagingNum))
   },[totalProduct > 0])
-    
-  useEffect(()=>{
-    console.log(startIndex)
-    console.log(endIndex)
-  },[startIndex, endIndex])
 
   // 페이징 번호 제한
   const validateIndex = (index) => {
@@ -44,31 +40,33 @@ const PageNav = (props) => {
     if (index >= 0 && index <= totalPage) {
       result = true;
     }
-    if (index >= 0 && index - length <= totalPage) {
+    if (index >= 0 && index - PagingNum <= totalPage) {
       result = true;
     }
     return result;
   };
 
-  let lengthber = Array.from({ length: totalPage }, (num, index) => index)
+  let pageNumber = Array.from({ length: totalPage }, (num, index) => index)
 
-  const prevPage = () => {
+  const prevPage = (event) => {
+    event.preventDefault()
     if (
-      validateIndex(startIndex - length) &&
-      validateIndex(endIndex - length)
+      validateIndex(startIndex - PagingNum) &&
+      validateIndex(endIndex - PagingNum)
     ) {
-      setStartIndex(startIndex - length);
-      setEndIndex(endIndex - length);
+      setStartIndex(startIndex - PagingNum);
+      setEndIndex(endIndex - PagingNum);
     }
   };
 
-  const nextPage = () => {
+  const nextPage = (event) => {
+    event.preventDefault()
     if (
-      validateIndex(startIndex + length) &&
-      validateIndex(endIndex + length)
+      validateIndex(startIndex + PagingNum) &&
+      validateIndex(endIndex + PagingNum)
     ) {
-      setStartIndex(startIndex + length);
-      setEndIndex(endIndex + length);
+      setStartIndex(startIndex + PagingNum);
+      setEndIndex(endIndex + PagingNum);
     }
   };
 
@@ -88,7 +86,7 @@ const PageNav = (props) => {
           onClick={prevPage}
         />
       </PaginationItem>
-      {lengthber.slice(startIndex, endIndex).map((number) => (
+      {pageNumber.slice(startIndex, endIndex).map((number) => (
       <PaginationItem active={number === currentPage} key={number}>
         <PaginationLink onClick={() => pageMove(number)} href="#">
           {number + 1}
@@ -117,4 +115,5 @@ const PageNav = (props) => {
 PageNav.defaultProps = {
   totalProduct: 0,
 }
+
 export default PageNav;
