@@ -7,18 +7,21 @@ const ProductList = (props) => {
   return (
     <div>
       <ListGroupItem action>
-        <List>
+        <List className="row">
           <Col md={1}>
             {currentPage * length + (index + 1)}
           </Col>
           <Col md={2}>
-            <img src={item.image} alt="썸네일" />
+            <img style={{width: 80, height: 80}} src={item.image} alt="썸네일" />
           </Col>
-          <Col md={4}>
-            <span>{item.title}</span>
+          <Col>
+            {item.title}
           </Col>
           <Col md={1}>
             {item.lprice}
+          </Col>
+          <Col md={1}>
+            <a href={item.link}>{item.mallName}</a>
           </Col>
         </List>
       </ListGroupItem>

@@ -7,6 +7,9 @@ const PageNav = (props) => {
     //페이징 사용 페이지의 총 게시글 수 및 필요 페이지 수
     const [ totalPost, setTotalPost ] = useState(0)
     const [ totalPage, setTotalPage ] = useState(0)
+    //페이징바 시작&끝 번호
+    const [ startIndex, setStartIndex ] = useState(0);
+    const [ endIndex, setEndIndex ] = useState(10);
 
   useEffect(()=>{
     // 필요한 페이지 수 확인하기
@@ -30,6 +33,45 @@ const PageNav = (props) => {
     setTotalPage(Math.ceil(totalProduct / length))
   },[totalProduct > 0])
     
+  useEffect(()=>{
+    console.log(startIndex)
+    console.log(endIndex)
+  },[startIndex, endIndex])
+
+  // 페이징 번호 제한
+  const validateIndex = (index) => {
+    let result = false;
+    if (index >= 0 && index <= totalPage) {
+      result = true;
+    }
+    if (index >= 0 && index - length <= totalPage) {
+      result = true;
+    }
+    return result;
+  };
+
+  let lengthber = Array.from({ length: totalPage }, (num, index) => index)
+
+  const prevPage = () => {
+    if (
+      validateIndex(startIndex - length) &&
+      validateIndex(endIndex - length)
+    ) {
+      setStartIndex(startIndex - length);
+      setEndIndex(endIndex - length);
+    }
+  };
+
+  const nextPage = () => {
+    if (
+      validateIndex(startIndex + length) &&
+      validateIndex(endIndex + length)
+    ) {
+      setStartIndex(startIndex + length);
+      setEndIndex(endIndex + length);
+    }
+  };
+
   return (
     <Pagination size="sm justify-content-center">
       <PaginationItem>
@@ -43,15 +85,13 @@ const PageNav = (props) => {
         <PaginationLink
           href="#"
           previous
-          onClick={() =>
-            0 === currentPage ? null : pageMove(currentPage - 1)
-          }
+          onClick={prevPage}
         />
       </PaginationItem>
-      {[...Array(totalPage)].map((data, i) => (
-      <PaginationItem active={i === currentPage} key={i}>
-        <PaginationLink onClick={() => pageMove(i)} href="#">
-          {i + 1}
+      {lengthber.slice(startIndex, endIndex).map((number) => (
+      <PaginationItem active={number === currentPage} key={number}>
+        <PaginationLink onClick={() => pageMove(number)} href="#">
+          {number + 1}
         </PaginationLink>
       </PaginationItem>
     ))}
@@ -59,9 +99,7 @@ const PageNav = (props) => {
         <PaginationLink
           href="#"
           next
-          onClick={() =>
-            totalPage - 1 === currentPage ? null : pageMove(currentPage + 1)
-          }
+          onClick={nextPage}
         />
       </PaginationItem>
       <PaginationItem>

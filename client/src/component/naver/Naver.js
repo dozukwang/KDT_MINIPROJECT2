@@ -14,7 +14,7 @@ const Naver = () => {
   const [ totalProduct, setTotalProduct ] = useState(0)
   const [ currentPage, setCurrentPage ] = useState(0)
   const pageName = 'Product'
-  const length = 20
+  const length = 20 //한 번에 검색할 상품 수
   const start = 1
 
   // 자동검색어 키워드 추출
@@ -58,7 +58,8 @@ const Naver = () => {
     axios
     .post('/api/naverApi?type=shopList', {
       query: keyword,
-      start: (pageNumber * length) + 1
+      start: (pageNumber * length) + 1,
+      display: length
     })
     .then((response) => {
       console.log(response.data)
@@ -75,15 +76,8 @@ const Naver = () => {
     setCurrentPage(pageNumber)
   }
 
-  const check = () => {
-    console.log(totalProduct)
-  }
-
-
-  
   return (
     <div>
-      <button onClick={check}>test</button>
       <h2>최저가 상품 조회</h2>
       <Container>
         <Label htmlFor="keyword"> 찾고 싶은 상품 </Label>
@@ -94,16 +88,15 @@ const Naver = () => {
           ))}
       </ListGroup>
       </Container>
-
       <div>검색결과(리스트)</div>
       <ListGroup>
       <ListGroupItem>
-        <List>
-          <Col></Col>
-          <Col>상품 이미지</Col>
+        <List className="row">
+          <Col md={1}></Col>
+          <Col md={2}>상품 이미지</Col>
           <Col>상품명</Col>
-          <Col>최저가</Col>
-          <Col>판매처</Col>
+          <Col md={1}>최저가</Col>
+          <Col md={1}>판매처</Col>
         </List>
       </ListGroupItem>
       {ItemList.map((item, index)=>(

@@ -20,9 +20,6 @@ import MyPage from "./register/MyPage";
 import cookie from 'react-cookies'
 import axios from "axios";
 
-// window.location.hash 를 대신할 방법 찾아보기
-// 로그인
-
 function App() {
   const [userId, setUserId] = useState(''); 
   
