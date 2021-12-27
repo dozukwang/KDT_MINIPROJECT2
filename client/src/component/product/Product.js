@@ -87,7 +87,7 @@ const Product = (props) => {
 
   return (
     <Container>
-      <h2>상품</h2>
+      <h2>찜한 상품 목록</h2>
       <Form onSubmit={submitFormProduct}>
         <FormGroup>
           <Label htmlFor="title">검색어</Label>

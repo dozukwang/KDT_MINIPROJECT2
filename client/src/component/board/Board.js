@@ -38,7 +38,7 @@ const Board = () => {
       <Container>
         <h2>게시판</h2>
         <div className="d-flex justify-content-between">
-          <span>10건의 게시물</span>
+          <span>게시물</span>
           <Link to="/board/newpost">
             <Button size="sm" className="">게시글 쓰기</Button>
           </Link>

@@ -102,8 +102,9 @@ function App() {
         <Route exact path="/board/editpost/:id" component={EditPost} />
         <Route exact path="/board/:id" component={Post} />
         <Route path="/product" render={() => <Product userId={userId} />} />
-        <Route path="/cart" render={() => <Cart userId={userId} />} />
-        <Route path="/history" render={() => <History userId={userId} />} />
+        {/* 미구현 목록 */}
+        {/* <Route path="/cart" render={() => <Cart userId={userId} />} /> */}
+        {/* <Route path="/history" render={() => <History userId={userId} />} /> */}
       </Switch>
       <Footer />
     </div>

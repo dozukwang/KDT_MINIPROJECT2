@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import { Container, Form, Input, Label, Button, FormGroup } from 'reactstrap'
-// import Swal from 'sweetalert2'
 import cookies from 'react-cookies'
 import { useHistory } from "react-router-dom";
 
@@ -85,24 +84,6 @@ const Login = (props) => {
       default:
         return null
     }
-  }
-
-  const fncLogin = () => {
-
-  }
-
-  // const sweetalert = (title, showConfirmButton, icon) => {
-  //   Swal.fire({
-  //     position: "bottom-end",
-  //     icon,
-  //     title,
-  //     showConfirmButton,
-  //     timer: 1000,
-  //   })
-  // }
-
-  const loginValidCheck = () => {
-    console.log('입력값이 존재함')
   }
 
   return (
