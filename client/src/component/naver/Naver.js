@@ -78,8 +78,8 @@ const Naver = () => {
 
   return (
     <div>
-      <h2>등록할 상품 검색</h2>
       <Container>
+        <h2>등록할 상품 검색</h2>
         <Label htmlFor="keyword"> 찾고 싶은 상품 </Label>
         <Input id="keyword" type="search" autoComplete="off" onKeyPress={handleEnterSearch} onChange={getAutoKeyword} value={inputKeyword} placeholder="검색어 입력"/>
         <ListGroup>
